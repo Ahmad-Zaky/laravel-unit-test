@@ -1,2 +1,1 @@
-# laravel-unit-test
-L Unit Test
+# Laravel Unit Test

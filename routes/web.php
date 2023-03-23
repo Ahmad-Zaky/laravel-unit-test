@@ -24,4 +24,4 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class)->middleware(['auth']);

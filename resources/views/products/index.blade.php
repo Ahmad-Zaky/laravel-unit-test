@@ -54,14 +54,16 @@
                         <thead>
                             <tr class="text-center font-bold">
                                 <td class="border px-6 py-4">Name</td>
-                                <td class="border px-6 py-4">Price</td>
+                                <td class="border px-6 py-4">Price USD</td>
+                                <td class="border px-6 py-4">Price EUR</td>
                                 <td class="border px-6 py-4">Actions</td>
                             </tr>
                         </thead>
                         @forelse($products as $product)
                             <tr class="text-center">
                                 <td class="border px-6 py-4">{{ $product->name }}</td>
-                                <td class="border px-6 py-4">{{ $product->price }}</td>
+                                <td class="border px-6 py-4">{{ number_format($product->price, 2) }}</td>
+                                <td class="border px-6 py-4">{{ number_format($product->price_eur, 2) }}</td>
 
                                 <td class="border px-6 py-4">
 
@@ -84,7 +86,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="border px-6 py-4">{{ __('No products found !') }}</td>
+                                <td colspan="4" class="border px-6 py-4 text-center">{{ __('No products found !') }}</td>
                             </tr>
                         @endforelse
                     </table>

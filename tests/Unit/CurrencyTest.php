@@ -4,14 +4,14 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class ExampleTest extends TestCase
+class CurrencyTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A basic unit test example.
      *
      * @return void
      */
-    public function test_example()
+    public function test_convert_usd_to_eur_successful()
     {
         $this->assertTrue(true);
     }

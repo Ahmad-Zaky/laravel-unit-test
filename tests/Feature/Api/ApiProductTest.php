@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class ProductTest extends TestCase
+class ApiProductTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 

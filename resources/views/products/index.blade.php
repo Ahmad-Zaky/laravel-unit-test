@@ -13,7 +13,7 @@
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-right">
                                 <a class="px-4 py-1 hover:text-gray-400 hover:bg-gray-700 border rounded-lg"
-                                    href="{{ route('products.create') }}"> New Product +</a>
+                                    href="{{ route('products.create') }}"> {{  __('New Product') }} +</a>
                             </div>
                         </div>
                     </div>
@@ -68,20 +68,23 @@
                                 <td class="border px-6 py-4">
 
                                     <a href="{{ route('products.edit', $product->id) }}"
-                                        class="px-4 py-1 text-sm hover:text-gray-400 hover:bg-gray-700 border rounded-lg">Edit</a>
+                                        class="px-4 py-1 text-sm hover:text-gray-400 hover:bg-gray-700 border rounded-lg">{{ __('Edit') }}</a>
 
-                                    <form method="POST" action="{{ route('products.destroy', $product->id) }}"
-                                        style="display: inline-block">
+                                    @if (authAdmin())
 
-                                        @csrf
+                                        <form method="POST" action="{{ route('products.destroy', $product->id) }}"
+                                            style="display: inline-block">
 
-                                        @method('DELETE')
+                                            @csrf
 
-                                        <a href="#"
-                                            class="px-4 py-1 text-sm hover:text-gray-400 hover:bg-gray-700 border rounded-lg"
-                                            onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
-                                    </form>
+                                            @method('DELETE')
 
+                                            <a href="#"
+                                                class="px-4 py-1 text-sm hover:text-gray-400 hover:bg-gray-700 border rounded-lg"
+                                                onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Delete') }}</a>
+                                        </form>
+                                        
+                                    @endif
                                 </td>
                             </tr>
                         @empty

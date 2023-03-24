@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -20,17 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view("products.index", ["products" => Product::latest()->paginate()]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view("products.create");
+        return new ProductCollection(Product::latest()->paginate());
     }
 
     /**
@@ -41,10 +34,9 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        Product::create($request->validated());
+        $product = Product::create($request->validated());
 
-        return redirect()->route("products.index")
-            ->with('success', 'Product created successfully');;
+        return new ProductResource($product);
     }
 
     /**
@@ -55,18 +47,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view("products.show", ["product" => $product]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        return view("products.edit", ["product" => $product]);
+        return new ProductResource($product);
     }
 
     /**
@@ -80,8 +61,7 @@ class ProductController extends Controller
     {
         $product->update($request->validated());
 
-        return redirect()->route("products.index")
-            ->with('success', 'Product updated successfully');;
+        return new ProductResource($product);
     }
 
     /**
@@ -92,10 +72,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-     
+        $old = $product;
+
         $product->delete();
 
-        return redirect()->route("products.index")
-            ->with('success','Product deleted successfully');;
+        return new ProductResource($old);
     }
 }

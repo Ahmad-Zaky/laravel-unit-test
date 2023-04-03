@@ -35,7 +35,7 @@ class ApiProductTest extends TestCase
     {
         $products = $this->newProduct(10);
 
-        $response = $this->getJson(route("api.products.index"));
+        $response = $this->actingAs($this->user)->getJson(route("api.products.index"));
 
         $products = $this->formatResourceToArray(ProductCollection::class, $products);
 
@@ -46,7 +46,7 @@ class ApiProductTest extends TestCase
     {
         $product = $this->newProduct();
 
-        $response = $this->getJson(route("api.products.show", $product));
+        $response = $this->actingAs($this->user)->getJson(route("api.products.show", $product));
 
         $product = $this->formatResourceToArray(ProductResource::class, $product);
         $response->assertJson(["data" => $product]);
@@ -59,7 +59,7 @@ class ApiProductTest extends TestCase
             "price" => $this->faker->randomFloat(2, 100, 999)
         ];
 
-        $response = $this->postJson(route("api.products.store"), $product);
+        $response = $this->actingAs($this->user)->postJson(route("api.products.store"), $product);
 
         $response->assertStatus(Response::HTTP_CREATED);
 
@@ -77,7 +77,7 @@ class ApiProductTest extends TestCase
             "price" => $this->faker->randomFloat(2, 100, 999)
         ];
 
-        $response = $this->postJson(route("api.products.store"), $product);
+        $response = $this->actingAs($this->user)->postJson(route("api.products.store"), $product);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }

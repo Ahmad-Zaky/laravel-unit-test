@@ -24,6 +24,9 @@
 |
 */
 
+use App\Models\Product;
+use App\Models\User;
+
 expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
@@ -42,4 +45,30 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function newUser($number = NULL)
+{
+    return $number
+        ? User::factory($number)->create()
+        : User::factory()->create();
+}
+
+function newAdmin($number = NULL)
+{
+    return $number
+        ? User::factory($number)->create(["is_admin" => true])
+        : User::factory()->create(["is_admin" => true]);
+}
+
+function newProduct($number = NULL)
+{
+    return $number
+        ? Product::factory($number)->create()
+        : Product::factory()->create();
+}
+
+function lastProduct()
+{
+    return Product::orderBy("id", "DESC")->first();
 }
